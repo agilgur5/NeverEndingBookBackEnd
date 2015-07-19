@@ -1,0 +1,24 @@
+{
+  "name": "NeverEndingBookBackEnd",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agilgur5/NeverEndingBookBackEnd.git"
+  },
+  "author": "Anton Gilgur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agilgur5/NeverEndingBookBackEnd/issues"
+  },
+  "dependencies": {
+    "actionhero": "~11.2.4",
+    "passport": "~0.2.2",
+    "passport-twitter": "~1.0.3",
+    "cps-api": "0.0.10"
+  }
+}
