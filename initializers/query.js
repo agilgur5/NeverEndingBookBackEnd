@@ -10,28 +10,21 @@ module.exports = {
       // story methods
       addWord: function(userName, word, storyId, next){
         var self = this;
-        redis.hget(self.usersHash, userName, function(error, data){
-          if(error){
-            next(error);
-          }else if(data){
-            next("userName already exists");
-          }else{
-            self.cryptPassword(password, function(error, hashedPassword){
-              if(error){
-                next(error);
-              }else{
-                var data = {
-                  userName: userName,
-                  hashedPassword: hashedPassword,
-                  createdAt: new Date().getTime(),
-                };
-                redis.hset(self.usersHash, userName, JSON.stringify(data), function(error){
-                  next(error);
-                });
-              }
-            });
+
+        // consts
+        var wordId = 1;
+        var time_created = new Date.now();
+        
+        // create story
+        var wordDoc = {id: wordId, word: word, storyId: storyId, userName: userName, time_created: time_created};
+        cpsConn.sendRequest(new cps.InsertRequest(storyDoc), function (err, resp) {
+          if (err) {
+            console.error(err); // log error
+            next(err);
           }
+          console.log('New story created: ' + resp[0].id)
         });
+        
       },
       viewStoryWords: function(storyId, numWords, startingWordId, next) {
 
@@ -40,7 +33,24 @@ module.exports = {
 
       },
       createStory: function(userName, firstWord,  next) {
+        var self = this;
 
+        // consts
+        var storyId = 1;
+        var time_created = new Date.now();
+        
+        // create story
+        var storyDoc = {id: storyId, userName: userName, numWords: 0, time_created: time_created};
+        cpsConn.sendRequest(new cps.InsertRequest(storyDoc), function (err, resp) {
+          if (err) {
+            console.error(err); // log error
+            next(err);
+          }
+          console.log('New story created: ' + resp[0].id)
+        });
+
+        // create initial word
+        self.addWord(userName, firstWord, storyId)
       },
 
       // user methods

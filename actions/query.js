@@ -62,6 +62,7 @@ exports.storyList = {
   outputExample: [
     {
       id: 53,
+      userName: "@agilgur5",
       numWords: 350000, // current number of words in story
       time_created: "2014TZ" // iso time
     }
@@ -86,6 +87,7 @@ exports.createStory =
   // outputs a story object
   outputExample: {
     id: 53,
+    userName: "@agilgur5",
     numWords: 1,
     time_created: "2014TZ" // iso time
   },
