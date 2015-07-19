@@ -1,4 +1,5 @@
 var cps = require('cps-api');
+console.log("logue----------------");
 
 module.exports = {
   initialize: function(api, next) {
@@ -15,16 +16,38 @@ module.exports = {
         var wordId = 1;
         var time_created = new Date.now();
         
-        // create story
+        // create word
         var wordDoc = {id: wordId, word: word, storyId: storyId, userName: userName, time_created: time_created};
-        cpsConn.sendRequest(new cps.InsertRequest(storyDoc), function (err, resp) {
+        cpsConn.sendRequest(new cps.InsertRequest(wordDoc), function (err, resp) {
           if (err) {
             console.error(err); // log error
             next(err);
           }
-          console.log('New story created: ' + resp[0].id)
+          console.log('New word created: ' + resp[0].id);
         });
-        
+
+        // update story
+        var storyDoc = {id: storyId};
+        cpsCon.sendRequest(new cps.RetrieveRequest(storyId), function (err, resp) {
+          if (err) {
+            console.error(err);
+            next(err);
+          }
+          if (resp) {
+            storyDoc = resp.results.document[0];
+            storyDoc.numWords = resp.results.document[0].numWords + 1; // increment word count
+            console.log('Story retrieved...');
+
+            // update the word count
+            cpsConn.sendRequest(new cps.UpdateRequest(storyDoc), function (err, resp) {
+              if (err) {
+                console.error(err); // log error
+                next(err);
+              }
+              console.log('Word count incremented: ' + resp[0].numWords);
+            });
+          }
+        }, 'json');
       },
       viewStoryWords: function(storyId, numWords, startingWordId, next) {
 
@@ -46,7 +69,7 @@ module.exports = {
             console.error(err); // log error
             next(err);
           }
-          console.log('New story created: ' + resp[0].id)
+          console.log('New story created: ' + resp[0].id);
         });
 
         // create initial word
@@ -63,5 +86,6 @@ module.exports = {
       createUser: function(userName, next) {
 
       }
+    }
   }
 }

@@ -11,7 +11,9 @@ exports.default = {
 
       post: [
         { path: "/authenticate/twitter", action: "twitterAuth" }, 
-        { path: "/stories/:storyId", action: "addWord" }  
+        { path: "/story/:storyId", action: "addWord" },
+        { path: "/createStory", action: "createStory"},
+        { path: "/createUser", action: "createUser"},
       ]
       
     };

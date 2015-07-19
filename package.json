@@ -20,5 +20,11 @@
     "passport": "~0.2.2",
     "passport-twitter": "~1.0.3",
     "cps-api": "0.0.10"
+  }, 
+  "scripts": {
+    "help":         "./node_modules/actionhero/bin/actionhero help",
+    "start":        "./node_modules/actionhero/bin/actionhero start",
+    "actionhero":   "./node_modules/actionhero/bin/actionhero",
+    "startCluster": "./node_modules/actionhero/bin/actionhero startCluster"
   }
 }

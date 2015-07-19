@@ -6,7 +6,7 @@ exports.addWord = {
     word: {required: true},
     id: {required: true} // story id
   },
-  authenticated: true,
+  // authenticated: true,
   // outputs the word object
   outputExample: {
     storyId: 53,
@@ -20,6 +20,7 @@ exports.addWord = {
     api.query.addWord(data.params.userName, data.params.word, data.params.id, function(error){
       next(error);
     });
+    next()
   }
 }
 
@@ -76,14 +77,14 @@ exports.storyList = {
 }
 
 // not exposed as a route publicly (yet)
-exports.createStory =
+exports.createStory = {
   name: "createStory",
   description: "I create a story",
   inputs: {
     userName: {required: true},
     firstWord: {required: true}
   },
-  authenticated: true,
+  // authenticated: true,
   // outputs a story object
   outputExample: {
     id: 53,
@@ -96,6 +97,7 @@ exports.createStory =
     api.query.createStory(data.params.userName, data.params.firstWord, function(error){
       next(error);
     });
+    next()
   }
 }
 
@@ -150,7 +152,7 @@ exports.userList = {
   }
 }
 
-exports.createUser =
+exports.createUser = {
   name: "createUser",
   description: "I create a user",
   inputs: {
