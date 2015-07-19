@@ -4,9 +4,9 @@ exports.default = {
       
       get: [
         { path: "/users", action: "userList" },
-        { path: "/user/:userName", action: "viewUser" },
+        { path: "/user/:userName", action: "viewUserWords" },
         { path: "/stories", action: "storyList" }, 
-        { path: "/story/:storyId", action: "viewStory" },  
+        { path: "/story/:storyId", action: "viewStoryWords" },  
       ],
 
       post: [

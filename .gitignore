@@ -1,5 +1,5 @@
 # keys
-oauth.js
+export_keys.sh
 
 # Logs
 logs

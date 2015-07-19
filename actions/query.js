@@ -17,7 +17,7 @@ exports.addWord = {
   },
   version: 1.0,
   run: function(api, data, next){
-    api.db.addWord(data.params.userName, data.params.word, data.params.id, function(error){
+    api.query.addWord(data.params.userName, data.params.word, data.params.id, function(error){
       next(error);
     });
   }
@@ -44,7 +44,7 @@ exports.viewStoryWords = {
   ],
   version: 1.0,
   run: function(api, data, next){
-    api.db.viewStory(data.params.id, data.params.numWords, data.params.startingWordId, function(error){
+    api.query.viewStoryWords(data.params.id, data.params.numWords, data.params.startingWordId, function(error){
       next(error);
     });
   }
@@ -68,7 +68,7 @@ exports.storyList = {
   ],
   version: 1.0,
   run: function(api, data, next){
-    api.db.storyList(data.params.numStories, data.params.startingId, function(error){
+    api.query.storyList(data.params.numStories, data.params.startingId, function(error){
       next(error);
     });
   }
@@ -91,7 +91,7 @@ exports.createStory =
   },
   version: 1.0,
   run: function(api, data, next){
-    api.db.createStory(data.params.userName, data.params.firstWord, function(error){
+    api.query.createStory(data.params.userName, data.params.firstWord, function(error){
       next(error);
     });
   }
@@ -118,7 +118,7 @@ exports.viewUserWords = {
   ],
   version: 1.0,
   run: function(api, data, next){
-    api.db.viewUser(data.params.userName, data.params.numWords, data.params.startingId, function(error){
+    api.query.viewUserWords(data.params.userName, data.params.numWords, data.params.startingId, function(error){
       next(error);
     });
   }
@@ -142,7 +142,7 @@ exports.userList = {
   ],
   version: 1.0,
   run: function(api, data, next){
-    api.db.userList(data.params.numUsers, data.params.startingUserName, function(error){
+    api.query.userList(data.params.numUsers, data.params.startingUserName, function(error){
       next(error);
     });
   }
@@ -163,7 +163,7 @@ exports.createUser =
   },
   version: 1.0,
   run: function(api, data, next){
-    api.db.createUser(data.params.userName, data.params.time_created, function(error){
+    api.query.createUser(data.params.userName, function(error){
       next(error);
     });
   }
