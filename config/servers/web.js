@@ -1,7 +1,7 @@
 config.servers = {
   "web" : {
     secure: false,                       // HTTP or HTTPS?
-    serverOptions: {},                   // Passed to https.createServer if secure=ture. Should contain SSL certificates
+    serverOptions: {},                   // Passed to https.createServer if secure=true. Should contain SSL certificates
     port: 8080,                          // Port or Socket
     bindIP: "0.0.0.0",                   // Which IP to listen on (use 0.0.0.0 for all)
     httpHeaders : {                      // Any additional headers you want actionhero to respond with

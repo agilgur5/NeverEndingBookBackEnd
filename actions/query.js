@@ -13,7 +13,7 @@ exports.addWord = {
     word: "did",
     id: 42,
     userName: "@agilgur5",
-    datetime: "2015TZ" // iso time
+    time_created: "2015TZ" // iso time
   },
   version: 1.0,
   run: function(api, data, next){
@@ -23,23 +23,23 @@ exports.addWord = {
   }
 }
 
-exports.viewStory = {
-  name: "viewStory",
-  description: "I view a story (preferably lazily)",
+exports.viewStoryWords = {
+  name: "viewStoryWords",
+  description: "I view a story's words (preferably lazily)",
   inputs: {
     id: {required: true}, // story id
     numWords: {required: false}, // the number of words to load (defaults to <= 1000)
     startingWordId: {required: false} // the wordId from which to start (defaults to 1)
   },
   authenticated: false,
-  // outputs array of word objects in datetime order for that story
+  // outputs array of word objects in time_created order for that story
   outputExample: [
     {
       storyId: 53,
       word: "did",
       id: 42,
       userName: "@agilgur5",
-      datetime: "2015TZ" // iso time
+      time_created: "2015TZ" // iso time
     }
   ],
   version: 1.0,
@@ -58,12 +58,12 @@ exports.storyList = {
     startingId: {required: false} // the story id from which to start (defaults to 1)
   },
   authenticated: false,
-  // outputs an array of story objects in datetime order
+  // outputs an array of story objects in time_created order
   outputExample: [
     {
       id: 53,
       numWords: 350000, // current number of words in story
-      datetime: "2014TZ" // iso time
+      time_created: "2014TZ" // iso time
     }
   ],
   version: 1.0,
@@ -74,23 +74,46 @@ exports.storyList = {
   }
 }
 
-exports.viewUser = {
-  name: "viewUser",
-  description: "I view a user and all his words contributed (preferably lazily)",
+// not exposed as a route publicly (yet)
+exports.createStory =
+  name: "createStory",
+  description: "I create a story",
+  inputs: {
+    userName: {required: true},
+    firstWord: {required: true}
+  },
+  authenticated: true,
+  // outputs a story object
+  outputExample: {
+    id: 53,
+    numWords: 1,
+    time_created: "2014TZ" // iso time
+  },
+  version: 1.0,
+  run: function(api, data, next){
+    api.db.createStory(data.params.userName, data.params.firstWord, function(error){
+      next(error);
+    });
+  }
+}
+
+exports.viewUserWords = {
+  name: "viewUserWords",
+  description: "I view all of a user's words contributed to the never ending book (preferably lazily)",
   inputs: {
     userName: {required: true},
     numWords: {required: false}, // the number of words to load (defaults to <= 1000)
     startingId: {required: false} // the word id from which to start (defaults to the first wordId contributed)
   },
   authenticated: false,
-  // outputs an array of word objects in datetime order
+  // outputs an array of word objects in time_created order
   outputExample: [
     {
       storyId: 53,
       word: "did",
       id: 42,
       userName: "@agilgur5",
-      datetime: "2015TZ" // iso time
+      time_created: "2015TZ" // iso time
     }
   ],
   version: 1.0,
@@ -109,10 +132,12 @@ exports.userList = {
     startingUserName: {required: false} // the userName from which to start (defaults to the first userName who contributed)
   },
   authenticated: false,
-  // outputs an array of word objects in datetime order
+  // outputs an array of user objects in time_created order
   outputExample: [
     {
-      userName: "@agilgur5"
+      userName: "@agilgur5",
+      numWords: 9001, // number of words contributed to the never ending book
+      time_created: "2014TZ" // iso time
     }
   ],
   version: 1.0,
@@ -123,26 +148,22 @@ exports.userList = {
   }
 }
 
-// not exposed as a route publicly (yet)
-exports.createStory =
-  name: "createStory",
-  description: "I create a story",
+exports.createUser =
+  name: "createUser",
+  description: "I create a user",
   inputs: {
-    userName: {required: true},
-    firstWord: {required: true}
+    userName: {required: true}
   },
-  authenticated: true,
-  // outputs a story object
-  outputExample: [
-    {
-      id: 53,
-      numWords: 1,
-      datetime: "2014TZ" // iso time
-    }
-  ],
+  authenticated: false,
+  // outputs a user object
+  outputExample: {
+    userName: "@agilgur5",
+    numWords: 0,
+    time_created: "2014TZ" // iso time
+  },
   version: 1.0,
   run: function(api, data, next){
-    api.db.createStory(data.params.userName, data.params.firstWord, function(error){
+    api.db.createUser(data.params.userName, data.params.time_created, function(error){
       next(error);
     });
   }
